@@ -15,6 +15,7 @@ class my_bot:
         self.login()
 
     def login(self):
+        """LOGIN BASE USER"""
         self.driver.get(f'{self.base}accounts/login/')
         time.sleep(2)
         self.driver.find_element_by_name("username").send_keys(self.username)
@@ -23,15 +24,19 @@ class my_bot:
         time.sleep(2)
 
     def nav_user(self, user):
+        """Navigate to user home page"""
+        time.sleep(1)
         print(f"{self.base}{user}/")
         self.driver.get(f"{self.base}{user}/")
 
     def follow_user(self, user):
+        """Follow USER"""
         self.nav_user(user)
         follow = self.driver.find_elements_by_xpath("//button[contains(text(),'Follow')]")[0]
         follow.click()
 
     def follow_lot(self,links):
+        """Follow a LOT of User"""
         for link in links:
             self.driver.get(f"{self.base}{user}/")  
             follow = self.driver.find_elements_by_xpath("//button[contains(text(),'Follow')]")[0]
@@ -108,13 +113,16 @@ if __name__ == "__main__":
     with open('details.json') as json_data_file:
         data = json.load(json_data_file)
 
-    bot = my_bot(data['devashish']["username"],data['devashish']["pass"])
-    root = ['googledsc_dtu','chirag_c.s']
-    f_base = bot.create_user_base(root,100)
-    print(f_base)
-    path = "P:\python_projects\IG_bot\Records\RECORD.json"
-    with open(path, 'w') as fp:
-        json.dump(f_base, fp)
+    bot = my_bot(data['user']["username"],data['user']["pass"])
+    #root = [googledsc_dtu','chirag_c.s']
+    #u = ['brishi_12']
+    bot.nav_user('brishi_12')
+    # bot.dwnld_imgs('realkrsna')
+    #f_base = bot.create_user_base(u,15)
+    #print(f_base)
+    #path = "P:\python_projects\IG_bot\Records\RECORD.json"
+    #with open(path, 'w') as fp:
+    #    json.dump(f_base, fp)
 
 
 
@@ -125,4 +133,4 @@ if __name__ == "__main__":
     #bot.dwnld_imgs("carryminati")
     #foll = bot.get_followers('googledsc_dtu',125)
     #print(foll)
-    print(bot.username)
+    #print(bot.username)
